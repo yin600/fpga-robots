@@ -1,0 +1,121 @@
+// ACG720 (GW5AT-LV138PG484A) 机器人工程 正式引脚约束
+// 依据：官方《ACG720 引脚功能信息》xlsx + 原理图 P7 (Header 20x2)
+// 扩展排针 P7：针11=5V 针12=GND 针29=3V3 针30=GND；奇数针=GPIO0偶数号，偶数针=GPIO0奇数号
+
+// ================= 板载资源 =================
+// 板载 50MHz 时钟
+IO_LOC "clk50" Y18;
+IO_PORT "clk50" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+// 板载按键 S4（官方标注为复位键）
+IO_LOC "rst_key_n" B21;
+IO_PORT "rst_key_n" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+// 板载按键 S0 —— 任务4 启动键
+IO_LOC "btn_start_n" F15;
+IO_PORT "btn_start_n" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+// 板载 USB 串口
+IO_LOC "uart_rx" J21;
+IO_PORT "uart_rx" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+// 板载 USB 串口
+IO_LOC "uart_tx" M15;
+IO_PORT "uart_tx" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// 板载 LED0 = 心跳闪烁（证明时钟和配置正常）
+IO_LOC "led[0]" M22;
+IO_PORT "led[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// 板载 LED1 = 零偏标定完成
+IO_LOC "led[1]" N22;
+IO_PORT "led[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// 板载 LED2 = IMU WHO_AM_I 识别成功
+IO_LOC "led[2]" L21;
+IO_PORT "led[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// 板载 LED3 = 急停回路正常
+IO_LOC "led[3]" K21;
+IO_PORT "led[3]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// ================= 扩展排针 P7 =================
+// P7 第 1 针  (GPIO0_0)  左前 电机PWM  -> TB6612#1 PWMA
+IO_LOC "m_pwm[0]" A13;
+IO_PORT "m_pwm[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// P7 第 2 针  (GPIO0_1)  左前 IN1      -> TB6612#1 AIN1
+IO_LOC "m_in1[0]" A14;
+IO_PORT "m_in1[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// P7 第 3 针  (GPIO0_2)  左前 IN2      -> TB6612#1 AIN2
+IO_LOC "m_in2[0]" A15;
+IO_PORT "m_in2[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// P7 第 4 针  (GPIO0_3)  左后 电机PWM  -> TB6612#1 PWMB
+IO_LOC "m_pwm[1]" A16;
+IO_PORT "m_pwm[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// P7 第 5 针  (GPIO0_4)  左后 IN1      -> TB6612#1 BIN1
+IO_LOC "m_in1[1]" A18;
+IO_PORT "m_in1[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// P7 第 6 针  (GPIO0_5)  左后 IN2      -> TB6612#1 BIN2
+IO_LOC "m_in2[1]" A19;
+IO_PORT "m_in2[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// P7 第 7 针  (GPIO0_6)  TB6612#1 STBY
+IO_LOC "m_stby[0]" F13;
+IO_PORT "m_stby[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// P7 第 8 针  (GPIO0_7)  右前 电机PWM  -> TB6612#2 PWMA
+IO_LOC "m_pwm[2]" F14;
+IO_PORT "m_pwm[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// P7 第 9 针  (GPIO0_8)  右前 IN1      -> TB6612#2 AIN1
+IO_LOC "m_in1[2]" E13;
+IO_PORT "m_in1[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// P7 第 10 针  (GPIO0_9)  右前 IN2      -> TB6612#2 AIN2
+IO_LOC "m_in2[2]" E14;
+IO_PORT "m_in2[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// P7 第 13 针  (GPIO0_10)  右后 电机PWM  -> TB6612#2 PWMB
+IO_LOC "m_pwm[3]" C13;
+IO_PORT "m_pwm[3]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// P7 第 14 针  (GPIO0_11)  右后 IN1      -> TB6612#2 BIN1
+IO_LOC "m_in1[3]" B13;
+IO_PORT "m_in1[3]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// P7 第 15 针  (GPIO0_12)  右后 IN2      -> TB6612#2 BIN2
+IO_LOC "m_in2[3]" D14;
+IO_PORT "m_in2[3]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// P7 第 16 针  (GPIO0_13)  TB6612#2 STBY
+IO_LOC "m_stby[1]" D15;
+IO_PORT "m_stby[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// P7 第 17 针  (GPIO0_14)  左侧编码器 A 相 (只接前轮一个)
+IO_LOC "enc_l_a" C14;
+IO_PORT "enc_l_a" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+// P7 第 18 针  (GPIO0_15)  左侧编码器 B 相
+IO_LOC "enc_l_b" C15;
+IO_PORT "enc_l_b" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+// P7 第 19 针  (GPIO0_16)  右侧编码器 A 相
+IO_LOC "enc_r_a" B15;
+IO_PORT "enc_r_a" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+// P7 第 20 针  (GPIO0_17)  右侧编码器 B 相
+IO_LOC "enc_r_b" B16;
+IO_PORT "enc_r_b" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+// P7 第 21 针  (GPIO0_18)  左 超声波 TRIG
+IO_LOC "us_trig[0]" D17;
+IO_PORT "us_trig[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// P7 第 22 针  (GPIO0_19)  左 超声波 ECHO
+IO_LOC "us_echo[0]" C17;
+IO_PORT "us_echo[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+// P7 第 23 针  (GPIO0_20)  中 超声波 TRIG
+IO_LOC "us_trig[1]" E16;
+IO_PORT "us_trig[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// P7 第 24 针  (GPIO0_21)  中 超声波 ECHO
+IO_LOC "us_echo[1]" D16;
+IO_PORT "us_echo[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+// P7 第 25 针  (GPIO0_22)  右 超声波 TRIG
+IO_LOC "us_trig[2]" B17;
+IO_PORT "us_trig[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// P7 第 26 针  (GPIO0_23)  右 超声波 ECHO
+IO_LOC "us_echo[2]" B18;
+IO_PORT "us_echo[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+// P7 第 27 针  (GPIO0_24)  IMU CS
+IO_LOC "imu_cs_n" C18;
+IO_PORT "imu_cs_n" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// P7 第 28 针  (GPIO0_25)  IMU SCL/SCLK
+IO_LOC "imu_sclk" C19;
+IO_PORT "imu_sclk" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// P7 第 31 针  (GPIO0_26)  IMU SDA/MOSI
+IO_LOC "imu_mosi" F16;
+IO_PORT "imu_mosi" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+// P7 第 32 针  (GPIO0_27)  IMU AD0/MISO
+IO_LOC "imu_miso" E17;
+IO_PORT "imu_miso" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+// P7 第 33 针  (GPIO0_28)  急停：常闭按钮一端接P7-29(3V3)，另一端接这里；内部下拉
+IO_LOC "estop_ok" D20;
+IO_PORT "estop_ok" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
